@@ -12,7 +12,7 @@ $sql_connection = connectionDB();
 
 session_start();
 
-
+$result = GetAllGames($sql_connection);
 
 ?>
 
@@ -56,12 +56,20 @@ session_start();
 
     </nav>
   
+     <div class="row">
+    
+    <div class="column middle">
 
-    <div class="row">
-    <div class="column side">Column</div>
-    <div class="column middle">Column</div>
-    <div class="column side">Column</div>
+                  <?php
+                DisplayGames($result);
+                ?>
+
     </div>
+              
+    </div>
+
+    
+   
    
     <?php include("./static/footer.php"); ?>
     <?php closeDB($sql_connection); ?>
