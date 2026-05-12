@@ -1,0 +1,159 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333333;
+  background-color: #ffffff;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+a {
+  color: blue;
+  text-decoration: none;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+ul, ol {
+  margin-bottom: 15px;
+  padding-left: 20px;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+header {
+  background-color: #333333;
+  color: #ffffff;
+  padding: 20px;
+}
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+   
+}
+
+nav section {
+    display: flex;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    z-index: 9999;
+    
+}
+
+nav ul {
+    background-color: rgb(49, 49, 49);
+    display: flex;
+    width: 100%;
+    border: 2px solid #ff1c1c;
+    list-style: none;
+    padding: 0px;
+     z-index: 9999;
+}
+
+nav li {
+    display: inline;
+    text-align: center;
+}
+nav a {
+  color: #ffffff;
+  margin-right: 20px;
+  margin-left: 20px;
+  width: 100%;
+  font-variant: small-caps;
+  text-decoration: none;
+ 
+}
+
+
+
+nav li:hover{
+    background-color: #222222;
+   
+}
+
+nav img{
+    height: 80px;
+    padding: 10px;
+}
+
+.active {
+    background-color: #d53030;
+}
+
+
+.active:hover {
+    background-color: #d53030;
+}
+main {
+  padding: 30px 0;
+}
+
+footer {
+  background-color: #333333;
+  color: #ffffff;
+  text-align: center;
+  padding: 15px;
+}
+
+button {
+  background-color: #333333;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #555555;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+
+
+
+.col{
+  
+    border: 2px solid #ff1c1c;
+    background-color: #cecece;
+}
+
+
+.pokeball{
+  max-width: 20px !important;
+  max-height: 20px;
+}
