@@ -36,10 +36,10 @@ session_start();
              <img src="./images/pokepals.png" alt="logo">
         </section>
 
-
+        
 
         <ul>
-            <li  class = 'active'  ><a href="./../index.php">Home</a></li>
+            <li  class = 'active'  ><a href="./../index.php">Maison</a></li>
             <?php if (isset($_SESSION['connected']) && $_SESSION['connected']): ?>
                 <li><a href="./../php/logout.php">Déconnexion</a></li>
             <?php else: ?>
@@ -53,6 +53,7 @@ session_start();
     </a>
 
  
+    
 
 
 
