@@ -25,16 +25,13 @@ session_start();
     <meta name="author" content="Moi">
     <title>POKEPALS</title>
     <link rel="icon" href="./images/pokeball.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./styles/stylesheet.css">
     
 </head>
 <body>
+      <?php include("./static/header.php"); ?>
 
      <nav>
-        <section>
-             <img src="./images/pokepals.png" alt="logo">
-        </section>
 
         
 
@@ -58,9 +55,13 @@ session_start();
 
 
     </nav>
-    <?php include("./static/header.php"); ?>
+  
 
-
+    <div class="row">
+    <div class="column side">Column</div>
+    <div class="column middle">Column</div>
+    <div class="column side">Column</div>
+    </div>
    
     <?php include("./static/footer.php"); ?>
     <?php closeDB($sql_connection); ?>
