@@ -76,21 +76,135 @@ function DisplayMainInfo($jeu)
 
         
         echo '<a href="jeu.php?numero=' . $jeu['ID_jeu'] . '">';
-        echo '<img src="' . $jeu['Image_tt'] . '" class="img_thumbnail">';
+        echo '<img src="' . $jeu['Image_tt'] . '" class="img_thumbnail_big">';
         echo '</a>';
 
         echo '</div>';
 
-        echo '<div class="card-body">';
+        echo '<div class="card-infos">';
 
      
-        echo '<h6 class="note">';
+        echo '<h6 class="prix">';
 
        
-        echo $jeu['Prix'];
+        echo $jeu['Prix'] . "$";
 
   
         echo '</h6>';
+
+            echo '<h6 class="prix">';
+
+       
+        echo $jeu['Date_sortie'] ;
+
+  
+        echo '</h6>';
+
+
+
+            echo '<h6 class="prix">';
+
+       
+        echo $jeu['Synopsis'] ;
+
+  
+        echo '</h6>';
+
+
+            echo '<h6 class="prix">';
+
+       
+        echo $jeu['Supp'] ;
+
+  
+        echo '</h6>';
+
+        
+            echo '<h6 class="note">';
+
+       
+        echo $jeu['Notes'] ;
+
+  
+        echo '</h6>';
+
+
+
+
+        echo '</div>';
+
+        echo '</div>';
+        echo '</div>';
+    }
+
+
+function DisplayArticle($article)
+{
+     echo '<div class="col">';
+        echo '<div class="card">';
+
+        echo '<div class="cardbg">';
+
+        
+        echo '<div class="infocard">';
+
+        echo '<img src="' . $article['Photo'] . '" class="member_icon">';
+        
+        echo '<h1 class="username">';
+
+        echo $article['Username'];
+  
+        echo '</div>';
+  
+        echo '</h1>';
+        
+      
+      
+
+
+        echo '<h1 class="title">';
+
+        echo $article['Titre'];
+  
+
+  
+        echo '</h1>';
+
+      
+        echo '</div>';
+
+        echo '<div class="card-infos">';
+
+     
+        echo '<h6 class="prix">';
+
+       
+        echo $article['Contenu'];
+
+  
+        echo '</h6>';
+
+        
+        echo '<h6 class="note">';
+
+       
+        echo $article['Note'];
+
+  
+        echo '</h6>';
+
+
+          echo '<h6 class="prix">';
+
+       
+        echo $article['Date_publ'];
+
+  
+        echo '</h6>';
+
+      
+
+
 
 
         echo '</div>';
