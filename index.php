@@ -41,8 +41,11 @@ $result = GetAllGames($sql_connection);
                 <li><a href="./../php/logout.php">Déconnexion</a></li>
             <?php else: ?>
                 <li><a href="./../connection.php">Connection</a></li>
+            
+        
+                <li><a href="inscription.php">Inscription</a></li>
             <?php endif; ?>
-         
+
        
         </ul>
          <a href="index.html">
