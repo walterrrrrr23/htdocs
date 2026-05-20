@@ -40,7 +40,7 @@ function DisplayGames($bdd)
         echo '<h6 class="note">';
 
        
-        echo $jeu['Notes'];
+        echo number_format($jeu['Notes'],1);
 
   
         echo '</h6>';
@@ -123,7 +123,7 @@ function DisplayMainInfo($jeu)
             echo '<h6 class="note">';
 
        
-        echo $jeu['Notes'] ;
+        echo number_format($jeu['Notes'],1) ;
 
   
         echo '</h6>';
@@ -192,7 +192,7 @@ function DisplayArticle($article)
         echo '<h6 class="note">';
 
        
-        echo $article['Note'];
+        echo number_format($article['Note'], 1);
 
   
         echo '</h6>';
@@ -205,6 +205,21 @@ function DisplayArticle($article)
 
   
         echo '</h6>';
+
+
+        if (isset($article['Date_modif']) ){
+              echo '<h6 class="infos">';
+
+       
+        echo '( modifié ' . $article['Date_modif'] .')';
+
+  
+        echo '</h6>';
+
+      
+        }
+
+         
 
       
 

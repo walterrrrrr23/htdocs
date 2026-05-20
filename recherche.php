@@ -31,6 +31,34 @@ $jeux_trouves = searchGames($recherche_nom, $recherche_cat, $mysqli);
 <body>
     <?php include("./static/header.php"); ?>
 
+    <nav>
+
+        
+
+        <ul>
+            <li  ><a href="./../index.php">Maison</a></li>
+            <li  class = 'active'><a href="recherche.php">Recherche</a></li>
+            <?php if (isset($_SESSION['connected']) && $_SESSION['connected']): ?>
+                <li><a href="./../php/logout.php">Déconnexion</a></li>
+            <?php else: ?>
+                <li><a href="./../connection.php">Connection</a></li>
+            
+        
+                <li><a href="inscription.php">Inscription</a></li>
+            <?php endif; ?>
+
+       
+        </ul>
+         <a href="index.html">
+       
+    </a>
+
+ 
+    
+
+
+
+    </nav>
     <div class="row">
         <div class="column middle">
             <h2>Rechercher un jeu vidéo</h2>

@@ -17,6 +17,35 @@ if (isset($_SESSION['connected']) && $_SESSION['connected']) {
 <body>
     <?php include("./static/header.php"); ?>
 
+     <nav>
+
+        
+
+        <ul>
+            <li  ><a href="./../index.php">Maison</a></li>
+            <li ><a href="recherche.php">Recherche</a></li>
+            <?php if (isset($_SESSION['connected']) && $_SESSION['connected']): ?>
+                <li><a href="./../php/logout.php">Déconnexion</a></li>
+            <?php else: ?>
+                <li  class = 'active'><a href="./../connection.php">Connection</a></li>
+            
+        
+                <li ><a href="inscription.php">Inscription</a></li>
+            <?php endif; ?>
+
+       
+        </ul>
+         <a href="index.html">
+       
+    </a>
+
+ 
+    
+
+
+
+    </nav>
+
     <div class="row">
         <div class="column middle">
             <h2>Connexion à votre compte</h2>
