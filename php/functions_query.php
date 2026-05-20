@@ -33,11 +33,53 @@ function getgamebyID($id, $mysqli)
 
 
 {
-     $sql = "SELECT j.*, art.*, av.* FROM jeu j
-            JOIN article art ON j.ID_jeu = art.ID_jeu
-            LEFT JOIN avis av
-            ON j.ID_jeu = av.ID_jeu
-            WHERE j.ID_jeu = $id LIMIT 1";
+    $sql = $sql = "
+SELECT 
+    j.*,
+  
+    s.nom AS Supp,
+    AVG(av.Note) AS Notes
+FROM jeu j
+
+LEFT JOIN avis av 
+    ON j.ID_jeu = av.ID_jeu
+
+LEFT JOIN support s 
+    ON j.ID_support = s.ID_support
+
+WHERE j.ID_jeu = '$id'
+
+GROUP BY 
+    j.ID_jeu,
+    s.nom
+
+LIMIT 1
+";
+    $res = readDB($mysqli, $sql);
+    return $res[0] ?? null;
+}
+
+function getarticlebyID($id, $mysqli)
+
+
+{
+    $sql = $sql = "
+SELECT 
+    art.*,
+    m.*
+FROM jeu j
+
+JOIN article art 
+    ON j.ID_jeu = art.ID_jeu
+
+JOIN membre m
+    ON art.ID_member = m.ID_member
+
+
+WHERE j.ID_jeu = '$id'
+
+LIMIT 1
+";
     $res = readDB($mysqli, $sql);
     return $res[0] ?? null;
 }

@@ -67,6 +67,8 @@ session_start();
         $numero = $_GET['numero'];
 
         $jeu = getgamebyID($numero , $sql_connection);
+        $article = getarticlebyID($numero , $sql_connection);
+        
         
     ?>
 
@@ -78,7 +80,7 @@ session_start();
     </div>
     
     <div class="column middle">
-
+                  <?php    DisplayArticle($article)   ?>
     </div>
 
      </div>

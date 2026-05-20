@@ -189,6 +189,13 @@ footer {
    border-radius: 7px;
 }
 
+.img_thumbnail_big{
+  max-width: 350px;
+  max-height: 300px;
+   border-radius: 7px;
+}
+
+
 .title{
   font-size: 25px;
   font-variant: small-caps;
@@ -214,6 +221,51 @@ footer {
   text-align: center;
   font-size: 20px;
   background: linear-gradient(270deg, #ce68d9, #45c6db, #45db79);
+
+  border-radius: 7px;
+  padding: 10px;
+}
+
+
+.card-info{
+  background-color: #111010;
+  display: flexbox;
+  
+   border-radius: 7px;
+   align-items: center;
+   text-align: center;
+}
+
+
+.infocard{
+  background-color: #111010;
+  display: flex;
+  
+   border-radius: 7px;
+   align-items: center;
+   text-align: center;
+}
+
+.member_icon{
+  width: 100px;
+  height: 100px;
+
+  border-radius: 95px;
+  display: block;
+   padding: 20px;
+}
+
+.username{
+  size: 20px;
+  display: block;
+}
+.prix{
+  color:  white;
+
+ display:inline-block;
+ align-items: center;
+  text-align: center;
+  font-size: 20px;
 
   border-radius: 7px;
   padding: 10px;
