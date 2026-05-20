@@ -1,15 +1,27 @@
-<header>
-    
-    <h1>POKEDEX</h1>
-   
-    <?php
-        ini_set('display_errors', 'on');
+<?php
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
 
-if (isset($_SESSION['connected']) && $_SESSION['connected']) {
-    echo "Connecté en tant que " . $_SESSION['login'];
-} else {
-    echo "Non connecté";
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
-?> 
-  
+?>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Esir Critics</title>
+    <link rel="stylesheet" href="styles/stylesheet.css">
+</head>
+<body>
+
+<header>
+    <div class="entete-logo">
+        <a href="index.php">
+            <img src="images/logo.png" alt="Logo Kritik Kontrol" width="50">
+        </a>
+        <h1>ESIR Critics</h1>
+    </div>
+   
 </header>
+<main>
