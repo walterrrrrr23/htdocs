@@ -42,6 +42,26 @@ function getgamebyID($id, $mysqli)
     return $res[0] ?? null;
 }
 
+function checkUser($login, $password, $mysqli)
+{
+    $sql = "SELECT * FROM MEMBRE WHERE Username = '$login' AND Mdp = '$password'";
+    
+    return readDB($mysqli, $sql);
+}
+
+function checkUsernameExists($login, $mysqli)
+{
+    $sql = "SELECT Username FROM MEMBRE WHERE Username = '$login'";
+    return readDB($mysqli, $sql);
+}
+
+function insertMembre($nom, $prenom, $login, $mdp, $mail, $date_naiss, $mysqli)
+{
+    $sql = "INSERT INTO MEMBRE (Nom, Prenom, Username, Mdp, Mail, Date_naiss, Perm) 
+            VALUES ('$nom', '$prenom', '$login', '$mdp', '$mail', '$date_naiss', 'membre')";
+    
+    return writeDB($mysqli, $sql);
+}
 ?>
 
 
