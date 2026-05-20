@@ -2,5 +2,5 @@
 define('SERVEUR', 'localhost');       
 define('USER', 'root');                
 define('PWD', 'root');                 
-define('DB_NAME', 'pokedex');
+define('DB_NAME', 'projet');
 ?>
