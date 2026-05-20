@@ -1,5 +1,4 @@
 <?php
-
 ini_set('display_errors', 'on');
 
 require_once("./includes/constantes.php");
@@ -12,8 +11,19 @@ $sql_connection = connectionDB();
 
 session_start();
 
-$result = GetAllGames($sql_connection);
+$limit = 5; 
 
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+if ($page < 1) {
+    $page = 1;
+}
+
+$offset = ($page - 1) * $limit;
+
+$total_articles = countArticles($sql_connection);
+$total_pages = ceil($total_articles / $limit);
+
+$result = GetArticlesSortedAndPaginated($sql_connection, $limit, $offset);
 ?>
 
 <!DOCTYPE html>
@@ -21,62 +31,60 @@ $result = GetAllGames($sql_connection);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="Esir, Prepa">
-    <meta name="author" content="Moi">
-    <title>ESIR Critics</title>
-    <link rel="icon" href="./images/logo.png">
+    <title>Accueil - ESIR Critics</title>
     <link rel="stylesheet" type="text/css" href="./styles/stylesheet.css">
-    
 </head>
 <body>
-      <?php include("./static/header.php"); ?>
+    <?php include("./static/header.php"); ?>
 
-     <nav>
-
-        
-
+    <nav>
         <ul>
-            <li  class = 'active'  ><a href="./../index.php">Maison</a></li>
+            <li class='active'><a href="index.php">Maison</a></li>
             <li><a href="recherche.php">Recherche</a></li>
             <?php if (isset($_SESSION['connected']) && $_SESSION['connected']): ?>
-                <li><a href="./../php/logout.php">Déconnexion</a></li>
+                <li><a href="./php/logout.php">Déconnexion</a></li>
             <?php else: ?>
-                <li><a href="./../connection.php">Connection</a></li>
-            
-        
-                <li><a href="inscription.php">Inscription</a></li>
+                <li><a href="connection.php">Connection</a></li>
             <?php endif; ?>
-
-       
         </ul>
-         <a href="index.html">
-       
-    </a>
-
- 
-    
-
-
-
     </nav>
-  
-     <div class="row">
-    
-    <div class="column middle">
 
-                  <?php
+    <div class="row">
+        <div class="column middle">
+            <h2>Dernières Critiques de Jeux Vidéo</h2>
+
+            <?php
+            if (count($result) > 0) {
+                
                 DisplayGames($result);
-                ?>
-
+                
+                echo '<div class="pagination-container">';
+                
+                if ($page > 1) {
+                    echo '<a href="index.php?page=' . ($page - 1) . '" class="page-link">&laquo; Précédent</a>';
+                }
+                
+                for ($i = 1; $i <= $total_pages; $i++) {
+                    if ($i == $page) {
+                        echo '<strong class="page-active">' . $i . '</strong>';
+                    } else {
+                        echo '<a href="index.php?page=' . $i . '" class="page-link">' . $i . '</a>';
+                    }
+                }
+                
+                if ($page < $total_pages) {
+                    echo '<a href="index.php?page=' . ($page + 1) . '" class="page-link">Suivant &raquo;</a>';
+                }
+                
+                echo '</div>';
+            } else {
+                echo '<p>Aucun article n\'est disponible pour le moment.</p>';
+            }
+            ?>
+        </div>
     </div>
-              
-    </div>
 
-    
-   
-   
     <?php include("./static/footer.php"); ?>
     <?php closeDB($sql_connection); ?>
-
 </body>
 </html>

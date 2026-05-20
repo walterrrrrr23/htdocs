@@ -191,6 +191,34 @@ function searchGames($nom_recherche, $id_categorie, $mysqli)
 
     return readDB($mysqli, $sql);
 }
+
+function countArticles($mysqli)
+{
+    // On compte le nombre total d'articles dans la base
+    $sql = "SELECT COUNT(*) as total FROM article";
+    $res = readDB($mysqli, $sql);
+    return $res[0]['total'] ?? 0;
+}
+
+function GetArticlesSortedAndPaginated($mysqli, $limit, $offset)
+{
+    // On selectionne les jeux associes aux articles en les triant par la date de l'article
+    $sql = "
+        SELECT 
+            jeu.ID_jeu,
+            jeu.Nom,
+            jeu.Image_tt,
+            AVG(avis.Note) as Notes
+        FROM article
+        JOIN jeu ON article.ID_jeu = jeu.ID_jeu
+        LEFT JOIN avis ON jeu.ID_jeu = avis.ID_jeu
+        GROUP BY jeu.ID_jeu, jeu.Nom, jeu.Image_tt, article.Date_publ
+        ORDER BY article.Date_publ DESC
+        LIMIT $limit OFFSET $offset;
+    ";
+
+    return readDB($mysqli, $sql);
+}
 ?>
 
 
