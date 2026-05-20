@@ -10,5 +10,25 @@ function getIDbyName($mysqli,$name)
 
 }
 
+function GetAllGames($mysqli)
+{
+    
+
+    $sql = "
+        SELECT 
+            jeu.ID_jeu,
+            jeu.Nom,
+            jeu.Image_tt,
+            AVG(Note) as Notes
+        FROM jeu
+        LEFT JOIN avis ON jeu.ID_jeu = avis.ID_jeu
+        GROUP BY jeu.ID_jeu, jeu.Nom, jeu.Image_tt;
+      
+    ";
+
+    return readDB($mysqli, $sql);
+}
+
 ?>
+
 
