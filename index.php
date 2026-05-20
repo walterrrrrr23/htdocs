@@ -38,15 +38,18 @@ $result = GetArticlesSortedAndPaginated($sql_connection, $limit, $offset);
     <?php include("./static/header.php"); ?>
 
     <nav>
-        <ul>
-            <li class='active'><a href="index.php">Maison</a></li>
-            <li><a href="recherche.php">Recherche</a></li>
-            <?php if (isset($_SESSION['connected']) && $_SESSION['connected']): ?>
-                <li><a href="./php/logout.php">Déconnexion</a></li>
-            <?php else: ?>
-                <li><a href="connection.php">Connection</a></li>
-            <?php endif; ?>
-        </ul>
+    <ul>
+        <li><a href="index.php">Accueil</a></li>
+        <li><a href="recherche.php">Recherche</a></li>
+        
+        <?php if (isset($_SESSION['connected']) && $_SESSION['connected']): ?>
+            <li><a href="profil.php">Mon Profil</a></li>
+            <li><a href="./php/logout.php">Déconnexion</a></li>
+        <?php else: ?>
+            <li><a href="connection.php">Connexion</a></li>
+            <li><a href="inscription.php">Inscription</a></li>
+        <?php endif; ?>
+    </ul>
     </nav>
 
     <div class="row">
