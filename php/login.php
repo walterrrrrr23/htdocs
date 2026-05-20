@@ -37,9 +37,18 @@ $_SESSION['id'] = $user['ID_member'];
 $_SESSION['perm'] = $user['Perm']; // Tres utile pour verifier s'il est admin ou membre
 $_SESSION['connected'] = true;
 
+//On met a jour la date de connexion dans la base de donnees
+updateLastConnection($user['ID_member'], $mysqli);
+
 closeDB($mysqli);
+
+
 
 // On le renvoie vers la page d'accueil
 header('Location: ../index.php');
 exit();
+
+
+
+?>
 ?>

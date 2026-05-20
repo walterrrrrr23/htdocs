@@ -147,6 +147,50 @@ function insertMembre($nom, $prenom, $login, $mdp, $mail, $date_naiss, $mysqli)
     
     return writeDB($mysqli, $sql);
 }
+
+function updateLastConnection($id_member, $mysqli)
+{
+    // On met a jour le champ Date_dern_conex avec l'heure actuelle du serveur
+    $sql = "UPDATE MEMBRE SET Date_dern_conex = CURRENT_TIMESTAMP WHERE ID_member = $id_member";
+    
+    return writeDB($mysqli, $sql);
+}
+
+function getAllCategories($mysqli)
+{
+    $sql = "SELECT ID_genre, nom FROM GENRE ORDER BY nom ASC";
+    return readDB($mysqli, $sql);
+}
+
+function searchGames($nom_recherche, $id_categorie, $mysqli)
+{
+    // On sécurise les entrées pour éviter les bugs si l'utilisateur tape des guillemets
+    $nom_propre = mysqli_real_escape_string($mysqli, $nom_recherche);
+    $id_propre = mysqli_real_escape_string($mysqli, $id_categorie);
+
+    // On commence la requete de base
+    $sql = "SELECT jeu.ID_jeu, jeu.Nom, jeu.Image_tt, AVG(avis.Note) as Notes 
+            FROM JEU jeu 
+            LEFT JOIN AVIS avis ON jeu.ID_jeu = avis.ID_jeu";
+
+    // Si l'utilisateur a choisi une categorie, on fait la liaison avec la table CLASSER
+    if (!empty($id_propre)) {
+        $sql .= " INNER JOIN CLASSER c ON jeu.ID_jeu = c.ID_jeu AND c.ID_genre = '$id_propre' ";
+    }
+
+    // Le WHERE 1=1 est une petite astuce pour pouvoir ajouter des AND facilement apres
+    $sql .= " WHERE 1=1 ";
+
+    // Si l'utilisateur a tapé un nom, on utilise LIKE pour chercher ce mot dans le titre
+    if (!empty($nom_propre)) {
+        $sql .= " AND jeu.Nom LIKE '%$nom_propre%' ";
+    }
+
+    // On regroupe pour calculer la moyenne correctement
+    $sql .= " GROUP BY jeu.ID_jeu, jeu.Nom, jeu.Image_tt";
+
+    return readDB($mysqli, $sql);
+}
 ?>
 
 
