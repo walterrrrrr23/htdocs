@@ -13,7 +13,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <title>Esir Critics</title>
     <link rel="stylesheet" href="styles/stylesheet.css">
 </head>
-<body>
+
 
 <header>
     <div class="entete-logo">
@@ -24,4 +24,3 @@ if (session_status() === PHP_SESSION_NONE) {
     </div>
    
 </header>
-<main>

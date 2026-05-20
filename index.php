@@ -23,8 +23,8 @@ $result = GetAllGames($sql_connection);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Esir, Prepa">
     <meta name="author" content="Moi">
-    <title>POKEPALS</title>
-    <link rel="icon" href="./images/pokeball.png">
+    <title>ESIR Critics</title>
+    <link rel="icon" href="./images/logo.png">
     <link rel="stylesheet" type="text/css" href="./styles/stylesheet.css">
     
 </head>
