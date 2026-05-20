@@ -29,6 +29,19 @@ function GetAllGames($mysqli)
     return readDB($mysqli, $sql);
 }
 
+function getgamebyID($id, $mysqli)
+
+
+{
+     $sql = "SELECT j.*, art.*, av.* FROM jeu j
+            JOIN article art ON j.ID_jeu = art.ID_jeu
+            LEFT JOIN avis av
+            ON j.ID_jeu = av.ID_jeu
+            WHERE j.ID_jeu = $id LIMIT 1";
+    $res = readDB($mysqli, $sql);
+    return $res[0] ?? null;
+}
+
 ?>
 
 
