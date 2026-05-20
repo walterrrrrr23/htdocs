@@ -140,6 +140,9 @@ function DisplayMainInfo($jeu)
 
 function DisplayArticle($article)
 {
+
+
+
      echo '<div class="col">';
         echo '<div class="card">';
 
@@ -154,9 +157,10 @@ function DisplayArticle($article)
 
         echo $article['Username'];
   
+          echo '</h1>';
         echo '</div>';
   
-        echo '</h1>';
+      
         
       
       
@@ -176,7 +180,7 @@ function DisplayArticle($article)
         echo '<div class="card-infos">';
 
      
-        echo '<h6 class="prix">';
+        echo '<h6 class="texte_avis">';
 
        
         echo $article['Contenu'];
@@ -194,7 +198,7 @@ function DisplayArticle($article)
         echo '</h6>';
 
 
-          echo '<h6 class="prix">';
+          echo '<h6 class="infos">';
 
        
         echo $article['Date_publ'];
@@ -210,6 +214,122 @@ function DisplayArticle($article)
         echo '</div>';
 
         echo '</div>';
+        echo '</div>';
+    }
+
+
+    function DisplayImage($img)
+{
+
+
+
+
+     echo '<div class="col">';
+
+        foreach ($img as $image) {
+        echo '<div class="card">';
+
+        echo '<div class="cardbg">';
+
+        
+        echo '<div class="infocard">';
+
+        echo '<img src="' . $image['chemin'] . '" class="game_img">';
+
+
+
+
+
+        echo '</div>';
+
+        echo '</div>';
+         echo '</div>';
+        }
+        echo '</div>';
+    }
+
+
+function DisplayAvis($avis)
+{
+
+
+
+     echo '<div class="col">';
+
+
+        foreach ($avis as $article) {
+        echo '<div class="card avis">';
+        echo '<div class="cardbg avis">';
+
+        
+        echo '<div class="infocard avis">';
+          
+        echo '<h6 class="note avis">';
+
+       
+        echo $article['Note'];
+
+  
+        echo '</h6>';
+
+        echo '<img src="' . $article['Photo'] . '" class="member_icon avis">';
+        
+        echo '<h1 class="username avis">';
+
+       echo '<h1 class="username avis">';
+        echo $article['Username'];
+        echo '</h1>';
+        echo '</div>';
+        
+      
+      
+
+
+        echo '<h1 class="title avis">';
+
+        echo $article['Titre'];
+  
+
+  
+        echo '</h1>';
+
+      
+       
+
+        echo '<div class="card-infos avis">';
+
+     
+        echo '<h6 class="texte_avis">';
+
+       
+        echo $article['Texte'];
+
+  
+        echo '</h6>';
+
+      
+
+
+        echo '<h6 class="infos">';
+
+       
+        echo $article['Date_crea'];
+
+  
+        echo '</h6>';
+
+      
+
+
+
+
+        echo '</div>';
+
+        echo '</div>';
+         echo '</div>';
+
+
+        }
         echo '</div>';
     }
 

@@ -116,14 +116,13 @@ nav li:hover{
   background-color: rgb(31, 31, 32);
   color: #f6f1f1;
   padding: 10px;
-  height: 800px; 
+
   border-radius: 7px;
 }
 
 
 .column.side {
-  position: sticky;
-  top : 0;
+
   background-color: rgb(23, 24, 24);
   color: #f6f1f1;
    -webkit-flex: 1;
@@ -269,4 +268,109 @@ footer {
 
   border-radius: 7px;
   padding: 10px;
+}
+
+
+.texte_avis{
+  size: 10px;
+    display: block;
+}
+
+.infos{
+  size: 8px;
+  color: gray;
+    display: block;
+}
+
+
+
+
+.card.avis{
+  background-color: #161515;
+   border-radius: 7px;
+    padding: 2px;
+    align-items: center;
+  text-align: center;
+}
+
+.cardbg.avis{
+  background-color: #161515;
+  border-radius: 7px;
+  align-items: center;
+  text-align: center;
+}
+
+
+
+
+
+.title.avis{
+  font-size: 25px;
+  font-variant: small-caps;
+  display: block;
+  align-items: center;
+ 
+}
+
+
+.card-body.avis{
+  background-color: #111010;
+  display: flexbox;
+  
+   border-radius: 7px;
+   align-items: center;
+   text-align: center;
+}
+
+.note.avis{
+  color: #161515;
+ display:inline-block;
+ align-items: center;
+  text-align: center;
+  font-size: 20px;
+  background: white;
+  width: 50px;
+  height: 50px;
+  size : 25px;
+  border-radius: 50px;
+
+   margin-left: 20px;
+  margin-right: 20px;
+}
+
+
+.card-info.avis{
+  background-color: #111010;
+  display: flexbox;
+  
+   border-radius: 7px;
+   align-items: center;
+   text-align: center;
+}
+
+
+.infocard.avis{
+  background-color: #111010;
+  display: flex;
+  max-height: 70px;
+   border-radius: 7px;
+   align-items: center;
+   text-align: center;
+}
+
+.member_icon.avis{
+  width: 60px;
+  height: 60px;
+
+  border-radius: 95px;
+  display: block;
+   padding: 0px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.username.avis{
+  size: 10px;
+  display: block;
+  padding: 0px;
 }

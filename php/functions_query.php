@@ -83,7 +83,56 @@ LIMIT 1
     $res = readDB($mysqli, $sql);
     return $res[0] ?? null;
 }
+function getimagebyID($id, $mysqli)
+
+
+{
+    $sql = $sql = "
+SELECT 
+    p.*
+FROM jeu j
+
+JOIN photos p 
+    ON j.ID_jeu = p.ID_jeu
+
+
+WHERE j.ID_jeu = '$id'
+
+";
+    $res = readDB($mysqli, $sql);
+    return $res;
+}
+
+function getavisbyID($id, $mysqli)
+
+
+{
+    $sql = $sql = "
+SELECT 
+    av.*,
+    m.*
+FROM jeu j
+
+JOIN avis av 
+    ON j.ID_jeu = av.ID_jeu
+
+JOIN membre m
+    ON av.ID_member = m.ID_member
+
+
+WHERE j.ID_jeu = '$id'
+
+";
+    $res = readDB($mysqli, $sql);
+    return $res;
+}
 
 ?>
+
+
+
+
+
+
 
 
