@@ -68,6 +68,8 @@ session_start();
 
         $jeu = getgamebyID($numero , $sql_connection);
         $article = getarticlebyID($numero , $sql_connection);
+        $image = getimagebyID($numero , $sql_connection);
+        $avis = getavisbyID($numero , $sql_connection);
         
         
     ?>
@@ -80,7 +82,15 @@ session_start();
     </div>
     
     <div class="column middle">
+
+                <h1 class="title"> ARTICLE</h1>
                   <?php    DisplayArticle($article)   ?>
+                
+                     <h1 class="title"> AVIS</h1>
+                  <?php    DisplayAvis($avis)   ?>
+
+                     <h1 class="title"> IMAGES</h1>
+                    <?php    DisplayImage($image)   ?>
     </div>
 
      </div>
