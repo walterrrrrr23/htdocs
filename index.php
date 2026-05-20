@@ -37,6 +37,7 @@ $result = GetAllGames($sql_connection);
 
         <ul>
             <li  class = 'active'  ><a href="./../index.php">Maison</a></li>
+            <li><a href="recherche.php">Recherche</a></li>
             <?php if (isset($_SESSION['connected']) && $_SESSION['connected']): ?>
                 <li><a href="./../php/logout.php">Déconnexion</a></li>
             <?php else: ?>
