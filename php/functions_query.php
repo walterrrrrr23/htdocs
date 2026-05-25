@@ -219,6 +219,57 @@ function GetArticlesSortedAndPaginated($mysqli, $limit, $offset)
 
     return readDB($mysqli, $sql);
 }
+
+function getUserById($id, $mysqli)
+{
+    $sql = "SELECT * FROM MEMBRE WHERE ID_member = $id";
+    $res = readDB($mysqli, $sql);
+    return $res[0] ?? null;
+}
+
+function getUserReviews($id, $mysqli)
+{
+    // On remplace Date_cr par date_crea pour correspondre à ta base de données
+    $sql = "SELECT a.id_avis, a.titre, a.note, a.date_crea, j.nom as NomJeu 
+            FROM AVIS a 
+            JOIN JEU j ON a.ID_jeu = j.ID_jeu 
+            WHERE a.ID_member = $id 
+            ORDER BY a.date_crea DESC";
+    return readDB($mysqli, $sql);
+}
+
+function getUserArticles($id, $mysqli)
+{
+    // On récupère les articles écrits par ce membre (s'il est rédacteur/admin)
+    $sql = "SELECT ID_article, Titre, Date_publ 
+            FROM ARTICLE 
+            WHERE ID_member = $id 
+            ORDER BY Date_publ DESC";
+    return readDB($mysqli, $sql);
+}
+
+function checkOtherUsernameExists($login, $id_user, $mysqli)
+{
+    // On cherche si un AUTRE membre (ID différent) utilise déjà ce pseudo
+    $sql = "SELECT Username FROM MEMBRE WHERE Username = '$login' AND ID_member != $id_user";
+    return readDB($mysqli, $sql);
+}
+
+function updateUserProfile($id_user, $login, $mail, $photo_path, $mysqli)
+{
+    // On prépare la requête de base
+    $sql = "UPDATE MEMBRE SET Username = '$login', Mail = '$mail'";
+
+    // Si le script a validé une nouvelle photo, on l'ajoute à la requête SQL
+    if ($photo_path != "") {
+        $sql .= ", photo = '$photo_path'";
+    }
+
+    $sql .= " WHERE ID_member = $id_user";
+
+    return writeDB($mysqli, $sql);
+}
+
 ?>
 
 
