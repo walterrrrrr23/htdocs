@@ -183,8 +183,9 @@ footer {
 
 
 .img_thumbnail{
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 270px;
+  height: 170px;
+  background-size: 200%, 200%;
    border-radius: 7px;
 }
 
