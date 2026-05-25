@@ -70,7 +70,12 @@ $avis = getavisbyID($numero, $sql_connection);
 
             <h1 class="title"> ARTICLE</h1>
             <?php DisplayArticle($article); ?>
-            
+            <?php if (isset($_SESSION['perm']) && $_SESSION['perm'] == 'administrateur'): ?>
+                <div class="action-links">
+                    <a href="./php/delete_article.php?id=<?php echo $article['ID_article'] ?? $article['id_article']; ?>" class="msg-error" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ? Cette action est irréversible.');">Supprimer l'article</a>
+                </div>
+            <?php endif; ?>
+
             <h1 class="title"> AVIS</h1>
             <?php DisplayAvis($avis); ?>
 

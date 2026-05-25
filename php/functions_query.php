@@ -150,7 +150,6 @@ function insertMembre($nom, $prenom, $login, $mdp, $mail, $date_naiss, $mysqli)
 
 function updateLastConnection($id_member, $mysqli)
 {
-    // On met a jour le champ Date_dern_conex avec l'heure actuelle du serveur
     $sql = "UPDATE MEMBRE SET Date_dern_conex = CURRENT_TIMESTAMP WHERE ID_member = $id_member";
     
     return writeDB($mysqli, $sql);
@@ -164,29 +163,23 @@ function getAllCategories($mysqli)
 
 function searchGames($nom_recherche, $id_categorie, $mysqli)
 {
-    // On sécurise les entrées pour éviter les bugs si l'utilisateur tape des guillemets
     $nom_propre = mysqli_real_escape_string($mysqli, $nom_recherche);
     $id_propre = mysqli_real_escape_string($mysqli, $id_categorie);
 
-    // On commence la requete de base
     $sql = "SELECT jeu.ID_jeu, jeu.Nom, jeu.Image_tt, AVG(avis.Note) as Notes 
             FROM JEU jeu 
             LEFT JOIN AVIS avis ON jeu.ID_jeu = avis.ID_jeu";
 
-    // Si l'utilisateur a choisi une categorie, on fait la liaison avec la table CLASSER
     if (!empty($id_propre)) {
         $sql .= " INNER JOIN CLASSER c ON jeu.ID_jeu = c.ID_jeu AND c.ID_genre = '$id_propre' ";
     }
 
-    // Le WHERE 1=1 est une petite astuce pour pouvoir ajouter des AND facilement apres
     $sql .= " WHERE 1=1 ";
 
-    // Si l'utilisateur a tapé un nom, on utilise LIKE pour chercher ce mot dans le titre
     if (!empty($nom_propre)) {
         $sql .= " AND jeu.Nom LIKE '%$nom_propre%' ";
     }
 
-    // On regroupe pour calculer la moyenne correctement
     $sql .= " GROUP BY jeu.ID_jeu, jeu.Nom, jeu.Image_tt";
 
     return readDB($mysqli, $sql);
@@ -194,7 +187,7 @@ function searchGames($nom_recherche, $id_categorie, $mysqli)
 
 function countArticles($mysqli)
 {
-    // On compte le nombre total d'articles dans la base
+
     $sql = "SELECT COUNT(*) as total FROM article";
     $res = readDB($mysqli, $sql);
     return $res[0]['total'] ?? 0;
@@ -202,7 +195,6 @@ function countArticles($mysqli)
 
 function GetArticlesSortedAndPaginated($mysqli, $limit, $offset)
 {
-    // On selectionne les jeux associes aux articles en les triant par la date de l'article
     $sql = "
         SELECT 
             jeu.ID_jeu,
@@ -229,7 +221,6 @@ function getUserById($id, $mysqli)
 
 function getUserReviews($id, $mysqli)
 {
-    // On remplace Date_cr par date_crea pour correspondre à ta base de données
     $sql = "SELECT a.id_avis, a.titre, a.note, a.date_crea, j.nom as NomJeu 
             FROM AVIS a 
             JOIN JEU j ON a.ID_jeu = j.ID_jeu 
@@ -240,7 +231,6 @@ function getUserReviews($id, $mysqli)
 
 function getUserArticles($id, $mysqli)
 {
-    // On récupère les articles écrits par ce membre (s'il est rédacteur/admin)
     $sql = "SELECT ID_article, Titre, Date_publ 
             FROM ARTICLE 
             WHERE ID_member = $id 
@@ -250,17 +240,15 @@ function getUserArticles($id, $mysqli)
 
 function checkOtherUsernameExists($login, $id_user, $mysqli)
 {
-    // On cherche si un AUTRE membre (ID différent) utilise déjà ce pseudo
     $sql = "SELECT Username FROM MEMBRE WHERE Username = '$login' AND ID_member != $id_user";
     return readDB($mysqli, $sql);
 }
 
 function updateUserProfile($id_user, $login, $mail, $photo_path, $mysqli)
 {
-    // On prépare la requête de base
+
     $sql = "UPDATE MEMBRE SET Username = '$login', Mail = '$mail'";
 
-    // Si le script a validé une nouvelle photo, on l'ajoute à la requête SQL
     if ($photo_path != "") {
         $sql .= ", photo = '$photo_path'";
     }
@@ -270,14 +258,14 @@ function updateUserProfile($id_user, $login, $mail, $photo_path, $mysqli)
     return writeDB($mysqli, $sql);
 }
 
-// 1. Vérifier si l'utilisateur a déjà posté un avis sur ce jeu
+
 function checkUserReviewExists($id_member, $id_jeu, $mysqli)
 {
     $sql = "SELECT id_avis FROM AVIS WHERE ID_member = $id_member AND ID_jeu = $id_jeu";
     return readDB($mysqli, $sql);
 }
 
-// 2. Ajouter un nouvel avis
+//pour ajouter avis
 function addReview($titre, $texte, $note, $id_member, $id_jeu, $mysqli)
 {
     $titre_propre = mysqli_real_escape_string($mysqli, $titre);
@@ -289,7 +277,7 @@ function addReview($titre, $texte, $note, $id_member, $id_jeu, $mysqli)
     return writeDB($mysqli, $sql);
 }
 
-// 3. Modifier un avis existant
+//pour modifier un avis existant
 function updateReview($id_avis, $titre, $texte, $note, $id_member, $mysqli)
 {
     $titre_propre = mysqli_real_escape_string($mysqli, $titre);
@@ -355,6 +343,13 @@ function addArticle($titre, $contenu, $note, $id_jeu, $id_member, $mysqli)
     $sql = "INSERT INTO ARTICLE (titre, contenu, note, date_publ, ID_jeu, ID_member) 
             VALUES ('$titre_propre', '$contenu_propre', $note, CURRENT_TIMESTAMP, $id_jeu, $id_member)";
             
+    return writeDB($mysqli, $sql);
+}
+
+// Supprimer un article de la base de données
+function deleteArticle($id_article, $mysqli)
+{
+    $sql = "DELETE FROM ARTICLE WHERE ID_article = $id_article";
     return writeDB($mysqli, $sql);
 }
 ?>
