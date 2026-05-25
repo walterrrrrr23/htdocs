@@ -38,20 +38,27 @@ $avis = getavisbyID($numero, $sql_connection);
 <body>
     <?php include("./static/header.php"); ?>
 
-    <nav>
-        <ul>
-            <li><a href="./../index.php">Maison</a></li>
-            <?php if (isset($_SESSION['connected']) && $_SESSION['connected']): ?>
-                <li><a href="profil.php">Mon Profil</a></li>
-                <?php if (isset($_SESSION['perm']) && $_SESSION['perm'] == 'administrateur'): ?>
-                    <li><a href="admin_utilisateur.php" class="link-highlight">Gestion Utilisateurs</a></li>
-                <?php endif; ?>
-                <li><a href="./../php/logout.php">Déconnexion</a></li>
-            <?php else: ?>
-                <li><a href="./../connection.php">Connection</a></li>
+   <nav>
+    <ul>
+        <li ><a href="index.php">Accueil</a></li>
+        <li><a href="recherche.php">Recherche</a></li>
+        
+        <?php if (isset($_SESSION['connected']) && $_SESSION['connected']): ?>
+
+            <li><a href="profil.php">Mon Profil</a></li>
+            <li><a href="./php/logout.php">Déconnexion</a></li>
+            <?php if (isset($_SESSION['perm']) && $_SESSION['perm'] == 'administrateur'): ?>
+                <li><a href="admin_utilisateur.php">Gestion Utilisateurs</a></li>
             <?php endif; ?>
+            <?php if (isset($_SESSION['perm']) && $_SESSION['perm'] == 'administrateur'): ?>
+                <li><a href="ajouter_article.php" class="link-highlight">Rédiger un article</a></li>
+            <?php endif; ?>
+        <?php else: ?>
+            <li><a href="connection.php">Connexion</a></li>
+            <li><a href="inscription.php">Inscription</a></li>
+        <?php endif; ?>
             
-        </ul>
+    </ul>
     </nav>
   
     <div class="row">
@@ -70,6 +77,7 @@ $avis = getavisbyID($numero, $sql_connection);
             <div class="form-avis-container">
                 <h3>Rédiger une critique</h3>
                 
+                <div class="col2">
                 <?php
                 if (isset($_GET['succes']) && $_GET['succes'] == 'avis_ajoute') {
                     echo "<p class='msg-success'>Votre avis a été publié avec succès !</p>";
@@ -91,13 +99,13 @@ $avis = getavisbyID($numero, $sql_connection);
                         <form action="./php/add_avis.php" method="POST" class="form-login">
                             <input type="hidden" name="id_jeu" value="<?php echo $numero; ?>">
                             
-                            <label>Titre de votre avis :</label><br>
+                            <label class = 'titre'>Titre de votre avis :</label><br>
                             <input type="text" name="titre" required class="input-full"><br><br>
 
-                            <label>Votre critique :</label><br>
+                            <label  class = 'titre' >Votre critique :</label><br>
                             <textarea name="texte" rows="5" required class="input-full"></textarea><br><br>
 
-                            <label>Note (sur 10) :</label><br>
+                            <label  class = 'titre'>Note (sur 10) :</label><br>
                             <input type="number" name="note" min="0" max="10" required class="input-small"><br><br>
 
                             <button type="submit" class="btn-submit">Publier mon avis</button>
@@ -106,6 +114,7 @@ $avis = getavisbyID($numero, $sql_connection);
                     }
                 }
                 ?>
+                  </div>
             </div>
 
             <br><hr><br>

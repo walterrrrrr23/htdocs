@@ -39,7 +39,7 @@ $result = GetArticlesSortedAndPaginated($sql_connection, $limit, $offset);
 
     <nav>
     <ul>
-        <li><a href="index.php">Accueil</a></li>
+        <li class="active" ><a href="index.php">Accueil</a></li>
         <li><a href="recherche.php">Recherche</a></li>
         
         <?php if (isset($_SESSION['connected']) && $_SESSION['connected']): ?>
@@ -47,7 +47,10 @@ $result = GetArticlesSortedAndPaginated($sql_connection, $limit, $offset);
             <li><a href="profil.php">Mon Profil</a></li>
             <li><a href="./php/logout.php">Déconnexion</a></li>
             <?php if (isset($_SESSION['perm']) && $_SESSION['perm'] == 'administrateur'): ?>
-                <li><a href="admin_utilisateur.php" class="link-highlight">Gestion Utilisateurs</a></li>
+                <li><a href="admin_utilisateur.php" >Gestion Utilisateurs</a></li>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['perm']) && $_SESSION['perm'] == 'administrateur'): ?>
+                <li><a href="ajouter_article.php" class="link-highlight">Rédiger un article</a></li>
             <?php endif; ?>
         <?php else: ?>
             <li><a href="connection.php">Connexion</a></li>

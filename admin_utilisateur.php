@@ -29,13 +29,26 @@ $utilisateurs = getAllUsers($mysqli);
     <?php include("./static/header.php"); ?>
 
     <nav>
-        <ul>
-            <li><a href="index.php">Maison</a></li>
+    <ul>
+        <li ><a href="index.php">Accueil</a></li>
+        <li><a href="recherche.php">Recherche</a></li>
+        
+        <?php if (isset($_SESSION['connected']) && $_SESSION['connected']): ?>
+
             <li><a href="profil.php">Mon Profil</a></li>
             <li><a href="./php/logout.php">Déconnexion</a></li>
+            <?php if (isset($_SESSION['perm']) && $_SESSION['perm'] == 'administrateur'): ?>
+                <li  class="active"><a href="admin_utilisateur.php">Gestion Utilisateurs</a></li>
+            <?php endif; ?>
+        <?php else: ?>
+            <li><a href="connection.php">Connexion</a></li>
+            <li><a href="inscription.php">Inscription</a></li>
+        <?php endif; ?>
             
-        </ul>
+    </ul>
     </nav>
+
+   
   
     <div class="row">
         <div class="column middle">

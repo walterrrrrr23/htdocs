@@ -40,7 +40,7 @@ function DisplayGames($bdd)
         echo '<h6 class="note">';
 
        
-        echo $jeu['Notes'];
+        echo number_format($jeu['Notes'],1);
 
   
         echo '</h6>';
@@ -59,7 +59,7 @@ function DisplayGames($bdd)
 
 function DisplayMainInfo($jeu)
 {
-     echo '<div class="col">';
+     echo '<div class="col2">';
         echo '<div class="card">';
 
         echo '<div class="cardbg">';
@@ -123,7 +123,7 @@ function DisplayMainInfo($jeu)
             echo '<h6 class="note">';
 
        
-        echo $jeu['Notes'] ;
+        echo number_format($jeu['Notes'],1) ;
 
   
         echo '</h6>';
@@ -143,7 +143,7 @@ function DisplayArticle($article)
 
 
 
-     echo '<div class="col">';
+     echo '<div class="col2">';
         echo '<div class="card">';
 
         echo '<div class="cardbg">';
@@ -192,7 +192,7 @@ function DisplayArticle($article)
         echo '<h6 class="note">';
 
        
-        echo $article['Note'];
+        echo number_format($article['Note'], 1);
 
   
         echo '</h6>';
@@ -206,6 +206,21 @@ function DisplayArticle($article)
   
         echo '</h6>';
 
+
+        if (isset($article['Date_modif']) ){
+              echo '<h6 class="infos">';
+
+       
+        echo '( modifié ' . $article['Date_modif'] .')';
+
+  
+        echo '</h6>';
+
+      
+        }
+
+         
+
       
 
 
@@ -218,13 +233,13 @@ function DisplayArticle($article)
     }
 
 
-    function DisplayImage($img)
+function DisplayImage($img)
 {
 
 
 
 
-     echo '<div class="col">';
+     echo '<div class="col2">';
 
         foreach ($img as $image) {
         echo '<div class="card">';
@@ -256,42 +271,80 @@ function DisplayAvis($avis_list)
         return;
     }
     
-    echo "<ul>";
+
+    echo '<div class="col2">';
+      
+
+   
     foreach ($avis_list as $avis) {
-        echo "<li>";
+        echo '<div class="card avis">';
+
+        echo '<div class="cardbg avis">';
+
         
-        echo "<strong>" . htmlspecialchars($avis['titre'] ?? $avis['Titre']) . "</strong> - Note : " . ($avis['note'] ?? $avis['Note']) . "/10<br>";
-        echo "<em>Publié le " . ($avis['date_crea'] ?? $avis['Date_crea']) . "</em><br>";
+          echo '<div class="infocard avis">';
+
+            echo '<h6 class="note avis">';
+
+       
+            echo number_format($avis['Note'], 1);
+
+  
+        echo '</h6>';
+
+        echo '<img src="' . $avis['Photo'] . '" class="member_icon">';
+        
+        echo '<h1 class="username avis">';
+
+        echo $avis['Username'];
+  
+          echo '</h1>';
+        echo '</div>';
+  
+        
+      
+
         echo "<p>" . nl2br(htmlspecialchars($avis['texte'] ?? $avis['Texte'])) . "</p>";
         
-        // On vérifie si l'utilisateur est connecté
+        
+          echo '<h6 class="infos">';
+
+       
+        echo $avis['Date_crea'];
+
+  
+        echo '</h6>';
+
+
         if (isset($_SESSION['connected']) && $_SESSION['connected']) {
             
             $is_author = (isset($avis['ID_member']) && $_SESSION['id'] == $avis['ID_member']);
             $is_admin = (isset($_SESSION['perm']) && $_SESSION['perm'] == 'administrateur');
             
-            // Si c'est l'auteur OU l'administrateur, on affiche des actions
+          
             if ($is_author || $is_admin) {
                 $id_avis_actuel = $avis['id_avis'] ?? $avis['ID_avis'];
                 
                 echo "<div class='action-links'>";
-                
-                // L'auteur seul peut modifier son propre texte
+             
                 if ($is_author) {
-                    echo "[ <a href='modifier_avis.php?id=" . $id_avis_actuel . "' class='link-highlight'>Modifier</a> | ";
+                    echo " <a href='modifier_avis.php?id=" . $id_avis_actuel . "' class='link-highlight'>Modifier</a> ";
                 } else {
-                    echo "[ ";
+                    echo " ";
                 }
                 
-                // L'auteur ET l'admin peuvent supprimer
-                echo "<a href='./php/delete_avis.php?id=" . $id_avis_actuel . "' class='msg-error' onclick=\"return confirm('Êtes-vous sûr de vouloir supprimer cet avis ?');\">Supprimer</a> ]";
+         
+                echo "<a href='./php/delete_avis.php?id=" . $id_avis_actuel . "' class='link-highlight2' onclick=\"return confirm('Êtes-vous sûr de vouloir supprimer cet avis ?');\">Supprimer</a> ";
                 
                 echo "</div>";
             }
         }
         
-        echo "</li><br><hr><br>";
+        echo "<br><hr><br>";
+         echo "</div>";
+          echo "</div>";
+        
     }
-    echo "</ul>";
+    echo "</div>";
 }
 ?>
