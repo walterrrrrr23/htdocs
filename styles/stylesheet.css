@@ -432,7 +432,7 @@ footer {
     font-size: 18px;
 }
 
-/* Styles pour la section d'ajout d'avis */
+
 .form-avis-container {
     background-color: #111010;
     padding: 15px;
@@ -481,7 +481,7 @@ footer {
 }
 .action-links { margin-top: 10px; }
 
-/* Styles pour le tableau d'administration */
+
 .admin-table {
     width: 100%;
     border-collapse: collapse;

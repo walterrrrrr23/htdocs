@@ -313,40 +313,35 @@ function getSingleReview($id_avis, $id_member, $mysqli)
 
 function getAllUsers($mysqli)
 {
-    // On récupère la liste de tous les membres
     $sql = "SELECT ID_member, Username, Mail, Perm FROM MEMBRE ORDER BY Username ASC";
     return readDB($mysqli, $sql);
 }
 
 function updateUserRole($id_member, $new_perm, $mysqli)
 {
-    // On sécurise l'entrée pour éviter les failles
     $perm_propre = mysqli_real_escape_string($mysqli, $new_perm);
     
     $sql = "UPDATE MEMBRE SET Perm = '$perm_propre' WHERE ID_member = $id_member";
     return writeDB($mysqli, $sql);
 }
-// Récupérer la liste des jeux qui n'ont pas encore d'article
 function getJeuxSansArticle($mysqli)
 {
     $sql = "SELECT id_jeu, nom FROM JEU WHERE id_jeu NOT IN (SELECT ID_jeu FROM ARTICLE) ORDER BY nom ASC";
     return readDB($mysqli, $sql);
 }
 
-// Ajouter un nouvel article
+
 function addArticle($titre, $contenu, $note, $id_jeu, $id_member, $mysqli)
 {
     $titre_propre = mysqli_real_escape_string($mysqli, $titre);
     $contenu_propre = mysqli_real_escape_string($mysqli, $contenu);
     
-    // date_publ prendra la date et l'heure actuelles grâce à CURRENT_TIMESTAMP
     $sql = "INSERT INTO ARTICLE (titre, contenu, note, date_publ, ID_jeu, ID_member) 
             VALUES ('$titre_propre', '$contenu_propre', $note, CURRENT_TIMESTAMP, $id_jeu, $id_member)";
             
     return writeDB($mysqli, $sql);
 }
 
-// Supprimer un article de la base de données
 function deleteArticle($id_article, $mysqli)
 {
     $sql = "DELETE FROM ARTICLE WHERE ID_article = $id_article";

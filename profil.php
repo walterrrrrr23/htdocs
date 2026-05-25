@@ -2,7 +2,7 @@
 ini_set('display_errors', 'on');
 session_start();
 
-// Si l'utilisateur n'est pas connecté, on le renvoie vers la connexion
+// si pas connecté --> connexion
 if (!isset($_SESSION['connected']) || !$_SESSION['connected']) {
     header('Location: connection.php');
     exit();
@@ -17,7 +17,6 @@ require_once("./php/functions-structure.php");
 $mysqli = connectionDB();
 $id_user = $_SESSION['id'];
 
-// Récupération des données
 $user = getUserById($id_user, $mysqli);
 $mes_avis = getUserReviews($id_user, $mysqli);
 $mes_articles = getUserArticles($id_user, $mysqli);

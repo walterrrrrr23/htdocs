@@ -2,7 +2,6 @@
 ini_set('display_errors', 'on');
 session_start();
 
-// SÉCURITÉ
 if (!isset($_SESSION['connected']) || $_SESSION['perm'] !== 'administrateur') {
     header('Location: index.php');
     exit();
@@ -16,7 +15,6 @@ require_once("./php/functions-structure.php");
 
 $mysqli = connectionDB();
 
-// On récupère la liste des jeux disponibles pour le menu déroulant
 $jeux_dispos = getJeuxSansArticle($mysqli);
 ?>
 

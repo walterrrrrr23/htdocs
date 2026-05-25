@@ -2,7 +2,6 @@
 ini_set('display_errors', 'on');
 session_start();
 
-// SÉCURITÉ STRICTE : Seul un administrateur a le droit d'exécuter ce fichier
 if (!isset($_SESSION['connected']) || $_SESSION['perm'] !== 'administrateur') {
     header('Location: ../index.php');
     exit();
@@ -18,14 +17,13 @@ $mysqli = connectionDB();
 $id_cible = (int)$_POST['id_membre'];
 $nouvelle_perm = $_POST['permission'];
 
-// Sécurité : On empêche l'administrateur de changer son propre rôle par erreur
+// empeche admin de changer son role
 if ($id_cible === $_SESSION['id']) {
     closeDB($mysqli);
     header('Location: ../admin_utilisateur.php?erreur=meme_user');
     exit();
 }
 
-// On vérifie que la permission envoyée est valide par sécurité
 $roles_autorises = ['membre', 'redacteur', 'administrateur'];
 
 if (in_array($nouvelle_perm, $roles_autorises)) {

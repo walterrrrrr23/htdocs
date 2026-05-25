@@ -10,7 +10,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Esir Critics</title>
+    <title>Esir Critics</title> //trop creatif
     <link rel="stylesheet" href="styles/stylesheet.css">
 </head>
 
@@ -20,7 +20,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <a href="index.php">
             <img src="images/logo.png" alt="Logo Kritik Kontrol" width="50">
         </a>
-        <h1>ESIR Critics</h1>
+        <h1>ESIR Critics</h1> //trop trop creatif
     </div>
    
 </header>

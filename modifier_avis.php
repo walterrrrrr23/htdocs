@@ -17,10 +17,8 @@ $mysqli = connectionDB();
 $id_avis = (int)$_GET['id'];
 $id_member = $_SESSION['id'];
 
-// On récupère l'avis actuel
 $avis_actuel = getSingleReview($id_avis, $id_member, $mysqli);
 
-// Si l'avis n'existe pas ou n'appartient pas à la personne, on la renvoie sur son profil
 if (!$avis_actuel) {
     closeDB($mysqli);
     header('Location: profil.php');

@@ -20,12 +20,10 @@ $titre = $_POST['titre'];
 $texte = $_POST['texte'];
 $note = (int)$_POST['note'];
 
-// On appelle la fonction de mise à jour que tu as déjà dans functions_query.php
 updateReview($id_avis, $titre, $texte, $note, $id_member, $mysqli);
 
 closeDB($mysqli);
 
-// On renvoie l'utilisateur sur son profil avec un message de succès
 header("Location: ../profil.php?succes=avis_modifie");
 exit();
 ?>

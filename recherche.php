@@ -10,14 +10,11 @@ require_once("./php/functions-structure.php");
 
 $mysqli = connectionDB();
 
-// On recupere toutes les categories pour remplir le menu deroulant
 $categories = getAllCategories($mysqli);
 
-// On recupere ce que l'utilisateur a tape (s'il y a quelque chose)
 $recherche_nom = isset($_GET['nom_jeu']) ? $_GET['nom_jeu'] : '';
 $recherche_cat = isset($_GET['categorie']) ? $_GET['categorie'] : '';
 
-// On lance la recherche
 $jeux_trouves = searchGames($recherche_nom, $recherche_cat, $mysqli);
 ?>
 
@@ -76,7 +73,6 @@ $jeux_trouves = searchGames($recherche_nom, $recherche_cat, $mysqli);
             <h3>Résultats de la recherche :</h3>
             <?php 
             if (count($jeux_trouves) > 0) {
-                // On reutilise ta fonction d'affichage qui existe deja !
                 DisplayGames($jeux_trouves);
             } else {
                 echo "<p>Aucun jeu ne correspond à votre recherche.</p>";
