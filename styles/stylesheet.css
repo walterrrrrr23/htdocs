@@ -397,3 +397,98 @@ footer {
     color: #45c6db;
     font-size: 18px;
 }
+
+/* Styles pour la section d'ajout d'avis */
+.form-avis-container {
+    background-color: #111010;
+    padding: 15px;
+    border-radius: 7px;
+    margin-top: 20px;
+}
+
+.msg-success {
+    color: #45db79;
+}
+
+.msg-error {
+    color: red;
+}
+
+.link-highlight {
+    color: #45c6db;
+}
+
+.input-full {
+    width: 100%;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.input-small {
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.btn-submit {
+    padding: 10px;
+    background-color: #45c6db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #22c1c3;
+}
+.action-links { margin-top: 10px; }
+
+/* Styles pour le tableau d'administration */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #111010;
+}
+
+.admin-table th, .admin-table td {
+    border: 1px solid #333;
+    padding: 12px;
+    text-align: left;
+}
+
+.admin-table th {
+    background-color: #222;
+    color: #45c6db;
+}
+
+.form-inline {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.select-role {
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #222;
+    color: white;
+    border: 1px solid #444;
+}
+
+.btn-small {
+    padding: 5px 10px;
+    background-color: #45c6db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-small:hover {
+    background-color: #22c1c3;
+}
+
+.text-muted {
+    color: #888;
+}
