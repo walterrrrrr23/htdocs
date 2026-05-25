@@ -17,49 +17,43 @@ if (isset($_SESSION['connected']) && $_SESSION['connected']) {
 <body>
     <?php include("./static/header.php"); ?>
 
-     <nav>
 
+    <nav>
+    <ul>
+        <li  ><a href="index.php">Accueil</a></li>
+        <li><a href="recherche.php">Recherche</a></li>
         
+        <?php if (isset($_SESSION['connected']) && $_SESSION['connected']): ?>
 
-        <ul>
-            <li  ><a href="./../index.php">Maison</a></li>
-            <li ><a href="recherche.php">Recherche</a></li>
-            <?php if (isset($_SESSION['connected']) && $_SESSION['connected']): ?>
-                <li><a href="./../php/logout.php">Déconnexion</a></li>
-            <?php else: ?>
-                <li  class = 'active'><a href="./../connection.php">Connection</a></li>
-            
-        
-                <li ><a href="inscription.php">Inscription</a></li>
+            <li><a href="profil.php">Mon Profil</a></li>
+            <li><a href="./php/logout.php">Déconnexion</a></li>
+            <?php if (isset($_SESSION['perm']) && $_SESSION['perm'] == 'administrateur'): ?>
+                <li><a href="admin_utilisateur.php" >Gestion Utilisateurs</a></li>
             <?php endif; ?>
-
-       
-        </ul>
-         <a href="index.html">
-       
-    </a>
-
- 
-    
-
-
-
-    </nav>
+        <?php else: ?>
+            <li class="active"><a href="connection.php">Connexion</a></li>
+            <li><a href="inscription.php">Inscription</a></li>
+        <?php endif; ?>
+            
+    </ul>
+  
 
     <div class="row">
         <div class="column middle">
-            <h2>Connexion à votre compte</h2>
+              <div class="col2">
+            <h2  class= "title">Connexion à votre compte</h2>
             
             <form action="./php/login.php" method="POST" class="form-login">
                 <br>
-                <label for="login">Nom d'utilisateur (Login) :</label><br>
+                <label  class = 'titre' for="login">Nom d'utilisateur (Login) :</label><br>
                 <input type="text" id="login" name="login" required><br><br>
 
-                <label for="password">Mot de passe :</label><br>
+                <label  class = 'titre' for="password">Mot de passe :</label><br>
                 <input type="password" id="password" name="password" required><br><br>
 
                 <button type="submit">Se connecter</button>
             </form>
+        </div>
         </div>
     </div>
 

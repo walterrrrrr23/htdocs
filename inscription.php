@@ -18,37 +18,29 @@ if (isset($_SESSION['connected']) && $_SESSION['connected']) {
     <?php include("./static/header.php"); ?>
 
      <nav>
-
+    <ul>
+        <li  ><a href="index.php">Accueil</a></li>
+        <li><a href="recherche.php">Recherche</a></li>
         
+        <?php if (isset($_SESSION['connected']) && $_SESSION['connected']): ?>
 
-        <ul>
-            <li  ><a href="./../index.php">Maison</a></li>
-            <li ><a href="recherche.php">Recherche</a></li>
-            <?php if (isset($_SESSION['connected']) && $_SESSION['connected']): ?>
-                <li><a href="./../php/logout.php">Déconnexion</a></li>
-            <?php else: ?>
-                <li><a href="./../connection.php">Connection</a></li>
-            
-        
-                <li  class = 'active'><a href="inscription.php">Inscription</a></li>
+            <li><a href="profil.php">Mon Profil</a></li>
+            <li><a href="./php/logout.php">Déconnexion</a></li>
+            <?php if (isset($_SESSION['perm']) && $_SESSION['perm'] == 'administrateur'): ?>
+                <li><a href="admin_utilisateur.php">Gestion Utilisateurs</a></li>
             <?php endif; ?>
-
-       
-        </ul>
-         <a href="index.html">
-       
-    </a>
-
- 
-    
-
-
-
+        <?php else: ?>
+            <li><a href="connection.php">Connexion</a></li>
+            <li class="active"><a href="inscription.php">Inscription</a></li>
+        <?php endif; ?>
+            
+    </ul>
     </nav>
 
     <div class="row">
         <div class="column middle">
-            <h2>Créer un compte</h2>
+                <div class="col2">
+            <h2 class= "title">Créer un compte</h2>
             
             <?php
             
@@ -62,26 +54,27 @@ if (isset($_SESSION['connected']) && $_SESSION['connected']) {
             ?>
 
             <form action="./php/register.php" method="POST" class="form-login">
-                <label>Nom :</label><br>
+                <label  class = 'titre'>Nom :</label><br>
                 <input type="text" name="nom" required><br><br>
 
-                <label>Prénom :</label><br>
+                <label  class = 'titre'>Prénom :</label><br>
                 <input type="text" name="prenom" required><br><br>
 
-                <label>Adresse mail :</label><br>
+                <label  class = 'titre'>Adresse mail :</label><br>
                 <input type="email" name="mail" required><br><br>
 
-                <label>Date de naissance :</label><br>
+                <label  class = 'titre'>Date de naissance :</label><br>
                 <input type="date" name="date_naiss" required><br><br>
 
-                <label>Nom d'utilisateur (Login) :</label><br>
+                <label  class = 'titre'>Username :</label><br>
                 <input type="text" name="login" required><br><br>
 
-                <label>Mot de passe :</label><br>
+                <label  class = 'titre'>Mot de passe :</label><br>
                 <input type="password" name="password" required><br><br>
 
                 <button type="submit">S'inscrire</button>
             </form>
+            </div>
         </div>
     </div>
 
