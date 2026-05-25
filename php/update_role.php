@@ -21,7 +21,7 @@ $nouvelle_perm = $_POST['permission'];
 // Sécurité : On empêche l'administrateur de changer son propre rôle par erreur
 if ($id_cible === $_SESSION['id']) {
     closeDB($mysqli);
-    header('Location: ../admin_utilisateurs.php?erreur=meme_user');
+    header('Location: ../admin_utilisateur.php?erreur=meme_user');
     exit();
 }
 
@@ -31,11 +31,11 @@ $roles_autorises = ['membre', 'redacteur', 'administrateur'];
 if (in_array($nouvelle_perm, $roles_autorises)) {
     updateUserRole($id_cible, $nouvelle_perm, $mysqli);
     closeDB($mysqli);
-    header("Location: ../admin_utilisateurs.php?msg=succes");
+    header("Location: ../admin_utilisateur.php?msg=succes");
     exit();
 } else {
     closeDB($mysqli);
-    header("Location: ../admin_utilisateurs.php?erreur=invalide");
+    header("Location: ../admin_utilisateur.php?erreur=invalide");
     exit();
 }
 ?>
