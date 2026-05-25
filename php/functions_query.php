@@ -270,7 +270,76 @@ function updateUserProfile($id_user, $login, $mail, $photo_path, $mysqli)
     return writeDB($mysqli, $sql);
 }
 
+// 1. Vérifier si l'utilisateur a déjà posté un avis sur ce jeu
+function checkUserReviewExists($id_member, $id_jeu, $mysqli)
+{
+    $sql = "SELECT id_avis FROM AVIS WHERE ID_member = $id_member AND ID_jeu = $id_jeu";
+    return readDB($mysqli, $sql);
+}
+
+// 2. Ajouter un nouvel avis
+function addReview($titre, $texte, $note, $id_member, $id_jeu, $mysqli)
+{
+    $titre_propre = mysqli_real_escape_string($mysqli, $titre);
+    $texte_propre = mysqli_real_escape_string($mysqli, $texte);
+    
+    $sql = "INSERT INTO AVIS (titre, texte, note, date_crea, ID_member, ID_jeu) 
+            VALUES ('$titre_propre', '$texte_propre', $note, CURRENT_TIMESTAMP, $id_member, $id_jeu)";
+            
+    return writeDB($mysqli, $sql);
+}
+
+// 3. Modifier un avis existant
+function updateReview($id_avis, $titre, $texte, $note, $id_member, $mysqli)
+{
+    $titre_propre = mysqli_real_escape_string($mysqli, $titre);
+    $texte_propre = mysqli_real_escape_string($mysqli, $texte);
+    
+    // Le "AND ID_member = $id_member" garantit qu'il ne modifie que SON avis
+    $sql = "UPDATE AVIS SET titre = '$titre_propre', texte = '$texte_propre', note = $note 
+            WHERE id_avis = $id_avis AND ID_member = $id_member";
+            
+    return writeDB($mysqli, $sql);
+}
+
+// 4. Supprimer un avis (avec le droit spécial pour l'admin)
+function deleteReview($id_avis, $id_member, $perm, $mysqli)
+{
+    // Si c'est un admin, il a le droit de supprimer n'importe quel ID
+    if ($perm === 'administrateur') {
+        $sql = "DELETE FROM AVIS WHERE id_avis = $id_avis";
+    } else {
+        // Sinon, il ne peut supprimer que le sien
+        $sql = "DELETE FROM AVIS WHERE id_avis = $id_avis AND ID_member = $id_member";
+    }
+    
+    return writeDB($mysqli, $sql);
+}
+
+function getSingleReview($id_avis, $id_member, $mysqli)
+{
+    $sql = "SELECT id_avis, titre, texte, note, ID_jeu FROM AVIS WHERE id_avis = $id_avis AND ID_member = $id_member";
+    $res = readDB($mysqli, $sql);
+    return $res[0] ?? null;
+}
+
+function getAllUsers($mysqli)
+{
+    // On récupère la liste de tous les membres
+    $sql = "SELECT ID_member, Username, Mail, Perm FROM MEMBRE ORDER BY Username ASC";
+    return readDB($mysqli, $sql);
+}
+
+function updateUserRole($id_member, $new_perm, $mysqli)
+{
+    // On sécurise l'entrée pour éviter les failles
+    $perm_propre = mysqli_real_escape_string($mysqli, $new_perm);
+    
+    $sql = "UPDATE MEMBRE SET Perm = '$perm_propre' WHERE ID_member = $id_member";
+    return writeDB($mysqli, $sql);
+}
 ?>
+
 
 
 

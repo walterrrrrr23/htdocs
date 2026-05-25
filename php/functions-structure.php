@@ -249,88 +249,49 @@ function DisplayArticle($article)
     }
 
 
-function DisplayAvis($avis)
+function DisplayAvis($avis_list) 
 {
-
-
-
-     echo '<div class="col">';
-
-
-        foreach ($avis as $article) {
-        echo '<div class="card avis">';
-        echo '<div class="cardbg avis">';
-
-        
-        echo '<div class="infocard avis">';
-          
-        echo '<h6 class="note avis">';
-
-       
-        echo $article['Note'];
-
-  
-        echo '</h6>';
-
-        echo '<img src="' . $article['Photo'] . '" class="member_icon avis">';
-        
-        echo '<h1 class="username avis">';
-
-       echo '<h1 class="username avis">';
-        echo $article['Username'];
-        echo '</h1>';
-        echo '</div>';
-        
-      
-      
-
-
-        echo '<h1 class="title avis">';
-
-        echo $article['Titre'];
-  
-
-  
-        echo '</h1>';
-
-      
-       
-
-        echo '<div class="card-infos avis">';
-
-     
-        echo '<h6 class="texte_avis">';
-
-       
-        echo $article['Texte'];
-
-  
-        echo '</h6>';
-
-      
-
-
-        echo '<h6 class="infos">';
-
-       
-        echo $article['Date_crea'];
-
-  
-        echo '</h6>';
-
-      
-
-
-
-
-        echo '</div>';
-
-        echo '</div>';
-         echo '</div>';
-
-
-        }
-        echo '</div>';
+    if (count($avis_list) == 0) {
+        echo "<p>Aucun avis pour ce jeu pour le moment.</p>";
+        return;
     }
-
+    
+    echo "<ul>";
+    foreach ($avis_list as $avis) {
+        echo "<li>";
+        
+        echo "<strong>" . htmlspecialchars($avis['titre'] ?? $avis['Titre']) . "</strong> - Note : " . ($avis['note'] ?? $avis['Note']) . "/10<br>";
+        echo "<em>Publié le " . ($avis['date_crea'] ?? $avis['Date_crea']) . "</em><br>";
+        echo "<p>" . nl2br(htmlspecialchars($avis['texte'] ?? $avis['Texte'])) . "</p>";
+        
+        // On vérifie si l'utilisateur est connecté
+        if (isset($_SESSION['connected']) && $_SESSION['connected']) {
+            
+            $is_author = (isset($avis['ID_member']) && $_SESSION['id'] == $avis['ID_member']);
+            $is_admin = (isset($_SESSION['perm']) && $_SESSION['perm'] == 'administrateur');
+            
+            // Si c'est l'auteur OU l'administrateur, on affiche des actions
+            if ($is_author || $is_admin) {
+                $id_avis_actuel = $avis['id_avis'] ?? $avis['ID_avis'];
+                
+                echo "<div class='action-links'>";
+                
+                // L'auteur seul peut modifier son propre texte
+                if ($is_author) {
+                    echo "[ <a href='modifier_avis.php?id=" . $id_avis_actuel . "' class='link-highlight'>Modifier</a> | ";
+                } else {
+                    echo "[ ";
+                }
+                
+                // L'auteur ET l'admin peuvent supprimer
+                echo "<a href='./php/delete_avis.php?id=" . $id_avis_actuel . "' class='msg-error' onclick=\"return confirm('Êtes-vous sûr de vouloir supprimer cet avis ?');\">Supprimer</a> ]";
+                
+                echo "</div>";
+            }
+        }
+        
+        echo "</li><br><hr><br>";
+    }
+    echo "</ul>";
+}
 ?>

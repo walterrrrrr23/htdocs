@@ -39,8 +39,8 @@ $mes_articles = getUserArticles($id_user, $mysqli);
             <h2>Mon Profil Privé</h2>
 
             <div class="cardbg" style="padding: 10px; margin-bottom: 20px;">
-                <p><strong>Date de création du compte :</strong> <?php echo $user['date_creation']; ?></p>
-                <p><strong>Dernière connexion :</strong> <?php echo $user['date_dern_conex']; ?></p>
+                <p><strong>Date de création du compte :</strong> <?php echo $user['Date_creation'] ?? $user['date_creation'] ?? 'Non renseignée'; ?></p>
+                <p><strong>Dernière connexion :</strong> <?php echo $user['Date_dern_conex'] ?? $user['date_dern_conex'] ?? 'Non renseignée'; ?></p>
             </div>
 
             <h3>Modifier mes informations</h3>
@@ -55,8 +55,8 @@ $mes_articles = getUserArticles($id_user, $mysqli);
             <form action="./php/update_profil.php" method="POST" enctype="multipart/form-data" class="form-login">
                 
                 <label>Photo de profil actuelle :</label><br>
-                <?php if (!empty($user['photo'])): ?>
-                    <img src="<?php echo $user['photo']; ?>" alt="Photo de profil" class="img_thumbnail" style="max-width: 150px;"><br>
+                <?php if (!empty($user['Photo'] ?? $user['photo'])): ?>
+                    <img src="<?php echo $user['Photo'] ?? $user['photo']; ?>" alt="Photo de profil" class="img_thumbnail" style="max-width: 150px;"><br>
                 <?php else: ?>
                     <p>Aucune photo</p>
                 <?php endif; ?>
@@ -73,22 +73,36 @@ $mes_articles = getUserArticles($id_user, $mysqli);
 
             <br><hr><br>
 
-            <h3>Mes Avis (Bonus)</h3>
-            <?php if (count($mes_avis) > 0): ?>
-                <ul>
-                <?php foreach ($mes_avis as $avis): ?>
-                    <li>
-                        <strong><?php echo htmlspecialchars($avis['NomJeu']); ?></strong> - 
-                        Note : <?php echo $avis['Note']; ?>/10 <br>
-                        <em>Publié le <?php echo $avis['date_crea']; ?></em>
-                        [ <a href="#">Modifier</a> | <a href="#">Supprimer</a> ]
-                    </li>
-                    <br>
-                <?php endforeach; ?>
-                </ul>
-            <?php else: ?>
-                <p>Vous n'avez posté aucun avis pour le moment.</p>
-            <?php endif; ?>
+            <h3>Mes Avis</h3>
+
+        <?php
+// Affichage des messages de succes apres une modification ou suppression
+        if (isset($_GET['succes']) && $_GET['succes'] == 'avis_modifie') {
+            echo "<p class='msg-success'>Votre avis a été modifié avec succès !</p>";
+        }
+        if (isset($_GET['msg']) && $_GET['msg'] == 'supprime') {
+            echo "<p class='msg-success'>Votre avis a bien été supprimé.</p>";
+        }
+        ?>
+
+        <?php if (count($mes_avis) > 0): ?>
+        <ul>
+        <?php foreach ($mes_avis as $avis): ?>
+            <li>
+                <strong><?php echo htmlspecialchars($avis['NomJeu']); ?></strong> - 
+                Note : <?php echo $avis['note'] ?? $avis['Note']; ?>/10 <br>
+                <em>Publié le <?php echo $avis['date_crea'] ?? $avis['Date_crea']; ?></em>
+                <br>
+            
+                [ <a href="modifier_avis.php?id=<?php echo $avis['id_avis'] ?? $avis['ID_avis']; ?>">Modifier</a> | 
+                <a href="./php/delete_avis.php?id=<?php echo $avis['id_avis'] ?? $avis['ID_avis']; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet avis ?');">Supprimer</a> ]
+            </li>
+            <br>
+            <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p>Vous n'avez posté aucun avis pour le moment.</p>
+        <?php endif; ?>
 
             <?php if ($_SESSION['perm'] == 'redacteur' || $_SESSION['perm'] == 'administrateur'): ?>
                 <br><hr><br>
